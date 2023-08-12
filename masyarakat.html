@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3" />
+    <!-- Your app title -->
+    <title>My App</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="css/framework7-icons.css" />
+    <link rel="stylesheet" href="css/framework7.bundle.min.css" />
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css" />
+  </head>
+
+  <body>
+    <!-- App root element -->
+    <div id="app">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- Initial Page, "data-name" contains page name -->
+        <div data-name="home" class="page">
+          <!-- Top Navbar -->
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="title">Halaman Masyarakat</div>
+            </div>
+          </div>
+          <!-- Bottom Toolbar -->
+          <div class="toolbar toolbar-bottom">
+            <div class="toolbar-inner">
+              <!-- Toolbar links -->
+              <a href="#" class="link">Link 1</a>
+              <a href="#" class="link">Link 2</a>
+            </div>
+          </div>
+          <!-- Scrollable page content -->
+          <div class="page-content">
+            <div class="block">
+              <div class="data-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>ID Petugas</th>
+                      <th>Nama Petugas</th>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>Telp</th>
+                      <th>Level</th>
+                      <th>Foto Profile</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tampil"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="block">
+              <a href="/tambah/" class="col button button-fill color-cyan">Tambah</a>
+            </div>
+          </div>
+        </div>
+
+        <!--untuk halaman tambah -->>
+        <div data-name="tambah" class="page stacked">
+          <!-- Top Navbar -->
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="left">
+                <a href="#" class="button back">
+                  <i class="icon f7-icons">arrow_left</i>
+                </a>
+              </div>
+              <div class="title">Tambah Data</div>
+            </div>
+          </div>
+          <!-- Bottom Toolbar -->
+          <div class="toolbar toolbar-bottom">
+            <div class="toolbar-inner">
+              <!-- Toolbar links -->
+              <a href="#" class="link">Link 1</a>
+              <a href="#" class="link">Link 2</a>
+            </div>
+          </div>
+          <!-- Scrollable page content -->
+          <div class="page-content">
+            <div class="block">
+              <form class="list" id="my-form">
+                <ul>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">ID Petugas</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="id_petugas"
+                            placeholder="id_petugas" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Nama Petugas</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="nama_petugas"
+                            placeholder="nama_petugas" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Username</div>
+                        <div class="item-input-wrap">
+                          <div class="item-input-wrap">
+                            <input type="text" id="username"
+                              placeholder="username" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Password</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="password"
+                            placeholder="password" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Telp</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="telp" placeholder="telp" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Level</div>
+                        <div class="item-input-wrap">
+                          <select id="level">
+                            <option value selected>--Pilih--</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Petugas">Petugas</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Foto Profile</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="foto_profile"
+                            placeholder="foto_profile" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+              <div class="block block-strong row">
+                <div class="col">
+                  <a class="button button-fill convert-form-to-data" href="#"
+                    id="simpan"> Simpan </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Untuk Form Ubah data-->
+        <div data-name="fubah" class="page stacked">
+          <!-- Top Navbar -->
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="left">
+                <a href="#" class="button back">
+                  <i class="icon f7-icons">arrow_left</i>
+                </a>
+              </div>
+              <div class="title">Form Ubah Data</div>
+            </div>
+          </div>
+          <!-- Bottom Toolbar -->
+          <div class="toolbar toolbar-bottom">
+            <div class="toolbar-inner">
+              <!-- Toolbar links -->
+              <a href="#" class="link">Link 1</a>
+              <a href="#" class="link">Link 2</a>
+            </div>
+          </div>
+          <!-- Scrollable page content -->
+          <div class="page-content">
+            <div class="block">
+              <form class="list" id="my-form">
+                <ul>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">ID Petugas</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="eid" placeholder="ID Petugas"
+                            readonly />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Nama Petugas</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="enama_petugas"
+                            placeholder="Nama Petugas" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Username</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="eusername"
+                            placeholder="Username" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Password</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="epassword"
+                            placeholder="Password" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Telp</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="etelp" placeholder="Telp" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Level</div>
+                        <div class="item-input-wrap">
+                          <select id="elevel">
+                            <option value selected>--Pilih--</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Petugas">Petugas</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Foto Profile</div>
+                        <div class="item-input-wrap">
+                          <input type="text" id="efoto_profile"
+                            placeholder="foto_profile" />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+              <div class="block block-strong row">
+                <div class="col">
+                  <a class="button button-fill convert-form-to-data" href="#"
+                    id="esimpan"> Ubah </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="js/framework7.bundle.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app-petugas.js"></script>
+  </body>
+</html>
