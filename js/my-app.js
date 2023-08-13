@@ -1,174 +1,242 @@
-var app = new Framework7({
-  // App root element
-  root: "#app",
-  // App Name
-  name: "My App",
-  // App id
-  id: "com.myapp.test",
+let app = new Framework7({
+  root: '#app',
+  name: 'My App',
+  id: 'com.myapp.test',
   view: {
     stackPages: true,
+    pushState: true,
   },
-  // Enable swipe panel
   panel: {
-    swipe: "left",
+    swipe: false,
+    visibleBreakpoint: 1024,
   },
-  // Add default routes
-  routes: [
-    {
-      path: "/about/",
-      url: "about.html",
-    },
-    {
-      path: "/tambah/",
-      pageName: "tambah",
-    },
-    {
-      path: "/home/",
-      pageName: "home",
-    },
-    {
-      path: "/fubah/",
-      pageName: "fubah",
-    },
-  ],
-  // ... other parameters
+  lazy: {
+    threshold: 50,
+    sequential: false,
+  },
+  routes: routes,
 });
+let mainView = app.views.create('.view-main');
+let $$ = Dom7;
 
-var mainView = app.views.create(".view-main");
-var $$ = Dom7;
-baca();
-$$("#simpan").click(function () {
-  var id = $$("#id").val();
-  var nama = $$("#nama").val();
-  var kelamin = $$("#kelamin").val();
-  var alamat = $$("#alamat").val();
-  var email = $$("#email").val();
-  var tlp = $$("#tlp").val();
-  app.request({
-    url: "http://localhost/dblatihan/simpan.php",
-    type: "POST",
-    data: {
-      id: id,
-      nama: nama,
-      kelamin: kelamin,
-      alamat: alamat,
-      email: email,
-      tlp: tlp,
-    },
-    success: function (data) {
-      app.dialog.alert("Berhasil Simpan Data!");
-      $$("#id").val("");
-      $$("#nama").val("");
-      $$("#kelamin").val("");
-      $$("#alamat").val("");
-      $$("#email").val("");
-      $$("#tlp").val("");
-      app.views.main.router.navigate("/home/");
-      baca();
-    },
-  });
-});
-$$("#tampil").on("click", "#hapus", function () {
-  var id = $$(this).data("id");
-  app.request.post(
-    "http://localhost/dblatihan/hapus.php",
-    {
-      id: id,
-    },
-    function (data) {
-      app.dialog.alert("Berhasil dihapus!");
-      baca();
-    }
-  );
-});
-$$("#tampil").on("click", "#ubah", function () {
-  var id = $$(this).data("id");
-  app.request.json(
-    "http://localhost/dblatihan/cari.php",
-    {
-      id: id,
-    },
-    function (data) {
-      $$("#eid").val(data[0].id_anggota);
-      $$("#enama").val(data[0].nama_anggota);
-      $$("#ekelamin").val(data[0].kelamin);
-      $$("#ealamat").val(data[0].alamat);
-      $$("#eemail").val(data[0].email);
-      $$("#etlp").val(data[0].tlp);
-      app.views.main.router.navigate("/fubah/");
-    }
-  );
-});
-$$("#esimpan").click(function () {
-  var id = $$("#eid").val();
-  var nama = $$("#enama").val();
-  var kelamin = $$("#ekelamin").val();
-  var alamat = $$("#ealamat").val();
-  var email = $$("#eemail").val();
-  var tlp = $$("#etlp").val();
-  app.request({
-    url: "http://localhost/dblatihan/esimpan.php",
-    type: "POST",
-    data: {
-      id: id,
-      nama: nama,
-      kelamin: kelamin,
-      alamat: alamat,
-      email: email,
-      tlp: tlp,
-    },
-    success: function (data) {
-      console.log(data);
-      app.dialog.alert("Berhasil Ubah Data!");
-      $$("#eid").val("");
-      $$("#enama").val("");
-      $$("#ekelamin").val("");
-      $$("#ealamat").val("");
-      $$("#eemail").val("");
-      $$("#etlp").val("");
-      app.views.main.router.navigate("/home/");
-      baca();
-    },
+get_home();
+get_statistik();
+get_informasi();
+get_posts();
+get_categories();
+
+function get_home() {
+  app.request.json('https://sidesa.androidcorners.com/api/admin/profile', ((data) => {
+    let posts = data.data;
+    console.log(posts);
+    let tampilkan = '';
+    posts.map((post) => {
+      tampilkan = tampilkan + '<div class="col"><div class="content"><a href="#" id="baca" data-id="' + post.id + '" class="link sheet-open" data-sheet=".my-sheet-push"><img src="https://sidesa.androidcorners.com/storage/profils/' + post.image + '" alt="Desa"></a><h6>' + post.title + '</h6></div></div>';
+    });
+    $$("#dataHome").html(tampilkan);
+  }))
+}
+$$("#dataHome").on("click", "#baca", function () {
+  app.preloader.show();
+  let id = $$(this).data("id");
+  app.request.json(`https://sidesa.androidcorners.com/api/admin/profile/${id}`, function (data) {
+    let post = data.data;
+    let tampilkan = '<div class="block"><p>' + post.content + '</p></div>';
+    $$("#detailHome").html(tampilkan);
+    setTimeout(function () {
+      app.preloader.hide();
+    }, );
   });
 });
 
-function baca() {
-  app.request.json("http://localhost/dblatihan/tampil.php", function (data) {
-    var jlh = data.length;
-    var i = "";
-    console.log(data);
-    var buatTabel = "";
-    for (i = 0; i < jlh; i++) {
-      buatTabel +=
-        "<tr>" +
-        "<td>" +
-        (i + 1) +
-        "</td>" +
-        "<td>" +
-        data[i].id_anggota +
-        "</td>" +
-        "<td>" +
-        data[i].nama_anggota +
-        "</td>" +
-        "<td>" +
-        data[i].alamat +
-        "</td>" +
-        "<td>" +
-        data[i].email +
-        "</td>" +
-        "<td>" +
-        data[i].kelamin +
-        "</td>" +
-        "<td>" +
-        data[i].tlp +
-        "</td>" +
-        "<td><a href='#' id='ubah' data-id='" +
-        data[i].id_anggota +
-        "'><i class='f7-icons'>arrow_2_circlepath</i></a> <a href='#' id='hapus' data-id='" +
-        data[i].id_anggota +
-        "'><i class='icon f7-icons color-red'>trash</i></a><td>" +
-        "</tr>";
-    }
-    $$("#tampil").html(buatTabel);
+
+function get_statistik() {
+  app.request.json('https://sidesa.androidcorners.com/api/admin/statistiks', ((data) => {
+    let posts = data.data;
+    console.log(posts);
+    let tampilkan = '';
+    posts.map((post) => {
+      tampilkan = tampilkan + '<div class="col"><div class="content"><a href="#" id="baca" data-id="' + post.id + '" class="link popup-open" data-popup=".my-sheet-push-stat"><img src="https://sidesa.androidcorners.com/storage/statistiks/' + post.image + '" alt="Desa"></a><h6>' + post.title + '</h6></div></div>';
+    });
+    $$("#dataStatistik").html(tampilkan);
+  }))
+}
+
+$$("#dataStatistik").on("click", "#baca", function () {
+  app.preloader.show();
+  let id = $$(this).data("id");
+  app.request.json(`https://sidesa.androidcorners.com/api/admin/statistiks/${id}`, function (data) {
+    let post = data.data;
+    let tampilkan = '<div class="block"><p>' + post.content + '</p></div>';
+    $$("#detailStatistik").html(tampilkan);
+    setTimeout(function () {
+      app.preloader.hide();
+    }, );
   });
+});
+
+function get_informasi() {
+  app.request.json('https://sidesa.androidcorners.com/api/admin/info', ((data) => {
+    let posts = data.data;
+    console.log(posts);
+    let tampilkan = '';
+    posts.map((post) => {
+      tampilkan = tampilkan + '<div class="col"><div class="content"><a href="#" id="baca" data-id="' + post.id + '" class="link popup-open" data-popup=".my-sheet-push-info"><img src="https://sidesa.androidcorners.com/storage/informasi/' + post.image + '" alt="Desa"></a><h6>' + post.title + '</h6></div></div>';
+    });
+    $$("#dataInformasi").html(tampilkan);
+  }))
+}
+
+$$("#dataInformasi").on("click", "#baca", function () {
+  app.preloader.show();
+  let id = $$(this).data("id");
+  app.request.json(`https://sidesa.androidcorners.com/api/admin/info/${id}`, function (data) {
+    let post = data.data;
+    let tampilkan = '<div class="block"><p>' + post.content + '</p></div>';
+    $$("#detailInformasi").html(tampilkan);
+    setTimeout(function () {
+      app.preloader.hide();
+    }, );
+  });
+});
+
+function get_posts() {
+  app.request.json('https://sidesa.androidcorners.com/api/web/posts', ((data) => {
+    let posts = data.data.data;
+    let tampilkan = '';
+    console.log(posts);
+    posts.map((post) => {
+      tampilkan = tampilkan + '<div class="content"><img src="' + post.image + '" alt=""><div class="content-text"><h5><a href="">' + post.title + '</a></h5><span><i class="fa fa-calendar-alt"></i>' + post.created_at + '</span><span><i class="fa fa-user"></i>' + post.user.name + '</span><span><i class="fa fa-archway"></i>' + post.category.name + '</span><p>' + post.description + '</p><br><button id="baca" data-id="' + post.slug + '" class="buttons"><i class="fas fa-paper-plane"></i> Baca Selengkapnya</button></div></div><div class="separator"></div>';
+    });
+    $$("#DataPosts").html(tampilkan);
+  }))
+}
+
+$$("#DataPosts").on("click", "#baca", function () {
+  app.preloader.show();
+  app.views.main.router.navigate('/detail/');
+  let id = $$(this).data("id");
+  app.request.json(`https://sidesa.androidcorners.com/api/web/posts/${id}`, function (data) {
+    let posts = data.data.comments;
+    let comment = '';
+    posts.map((data) => {
+      comment = comment + '<a href="#"><div class="content content-box"><i class="fas fa-user"></i><div class="service-title"><h4>' + data.name + '</h4><p>' + data.comment + '</p></div></div></a>';
+    });
+    $$("#datacomments").html(comment);
+    let post = data.data;
+    console.log(post);
+    let tampilkan = '<img src="' + post.image + '" alt=""><div class="content-text"><h5><a href="">' + post.title + '</a></h5><span><i class="fa fa-calendar-alt"></i>21 January 2020</span><div class="accordion accordion-icon content-entry"><div class="list accordion-list"><ul><li class="accordion-item"><a href="" class="item-link item-content"><div class="item-inner"><div class="item-title"><i class="fas fa-check"></i>Content</div></div></a><div class="accordion-item-content"><p>' + post.content + '</p></div></li></ul></div></div></div>';
+    $$("#datadetail").html(tampilkan);
+    let button = '<button id="' + post.slug + '" onClick="reply_click(this.id)" class="buttons buttons-center">Comments</button>';
+    $$("#comment").html(button);
+    setTimeout(function () {
+      app.preloader.hide();
+    }, );
+  });
+});
+
+function get_categories() {
+  app.request.json('https://sidesa.androidcorners.com/api/web/categorySidebar', ((data) => {
+    const posts = data.data;
+    let tampilkan = '';
+    console.log(posts);
+    posts.map((post) => {
+      tampilkan = tampilkan + '<div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1"><div class="timeline__event__icon "><i class="fas fa-bacon"></i></div><div class="timeline__event__content "><div class="timeline__event__title"><a href="#" id="baca" data-id="' + post.slug + '" class="timeline__event__title"><i class="fas fa-clone"></i> ' + post.name + ' <span><i class="fa fa-chevron-right"></i></span></a></div></div></div>';
+    });
+    $$("#DataCategories").html(tampilkan);
+  }))
+}
+
+$$("#DataCategories").on("click", "#baca", function () {
+  app.dialog.preloader('Loading...');
+  app.views.main.router.navigate('/detailpostcategory/');
+  let id = $$(this).data("id");
+  app.request.json(`https://sidesa.androidcorners.com/api/web/categories/${id}`, function (data) {
+    let posts = data.data.posts;
+    let tampilkan = '';
+    console.log(posts);
+    posts.map((post) => {
+      tampilkan = tampilkan + '<div class="content"><img src="' + post.image + '" alt=""><div class="content-text"><h5><a href="">' + post.title + '</a></h5><span><i class="fa fa-calendar-alt"></i>' + post.created_at + '</span><span><i class="fa fa-archway"></i>' + post.category.name + '</span><p>' + post.description + '</p><br><button id="' + post.slug + '" onClick="selengkapnya(this.id)" class="buttons"><i class="fas fa-paper-plane"></i> Read More</button></div></div><div class="separator"></div>';
+    });
+    $$("#DataPostsCategory").html(tampilkan);
+    setTimeout(function () {
+      app.dialog.close();
+    }, );
+  });
+});
+
+function selengkapnya(clicked_id) {
+  app.preloader.show();
+  app.views.main.router.navigate('/detailpost/');
+  let id = (clicked_id);
+  app.request.json(`https://sidesa.androidcorners.com/api/web/posts/${id}`, function (data) {
+    let posts = data.data.comments;
+    let comment = '';
+    posts.map((data) => {
+      comment = comment + '<a href="#"><div class="content content-box"><i class="fas fa-user"></i><div class="service-title"><h4>' + data.name + '</h4><p>' + data.comment + '</p></div></div></a>';
+    });
+    $$("#datacomments").html(comment);
+    let post = data.data;
+    console.log(post);
+    let tampilkan = '<img src="' + post.image + '" alt=""><div class="content-text"><h5><a href="">' + post.title + '</a></h5><span><i class="fa fa-calendar-alt"></i>21 January 2020</span><div class="accordion accordion-icon content-entry"><div class="list accordion-list"><ul><li class="accordion-item"><a href="" class="item-link item-content"><div class="item-inner"><div class="item-title"><i class="fas fa-check"></i>Content</div></div></a><div class="accordion-item-content"><p>' + post.content + '</p></div></li></ul></div></div></div>';
+    $$("#datadetail").html(tampilkan);
+    let button = '<button id="' + post.slug + '" onClick="reply_click(this.id)" class="buttons buttons-center">Comments</button>';
+    $$("#comment").html(button);
+    setTimeout(function () {
+      app.preloader.hide();
+    }, );
+  });
+}
+
+$$("#kirim").click(function () {
+  let name = $$("#datanama").val();
+  let isi = $$("#isi").val();
+  if (name == "" || isi == "") {
+    app.dialog.alert("Silahkan lengkapi form di atas", "Error");
+    return;
+  } else {
+    app.request({
+      url: 'https://sidesa.androidcorners.com/api/admin/saran',
+      dataType: 'text',
+      data: {
+        'name': name,
+        'content': isi,
+      },
+      type: 'post',
+      success: function () {
+        app.dialog.alert("Saran Berhasil ditambahkan", "Sukses");
+        $$("#nama").val("");
+        $$("#isi").val("");
+      },
+    });
+  }
+});
+
+function reply_click(clicked_id) {
+  let slug = (clicked_id);
+  let nama = $$("#nama").val();
+  let email = $$("#email").val();
+  let text = $$("#text").val();
+  if (nama == "" || email == "" || text == "") {
+    app.dialog.alert("Silahkan lengkapi form di atas", "Error");
+    return;
+  } else {
+    app.request({
+      url: 'https://sidesa.androidcorners.com/api/web/posts/storeComment',
+      dataType: 'text',
+      data: {
+        'slug': slug,
+        'name': nama,
+        'email': email,
+        'comment': text,
+      },
+      type: 'post',
+      success: function () {
+        app.dialog.alert("Komentar Berhasil ditambahkan", "Sukses");
+        $$("#nama").val("");
+        $$("#email").val("");
+        $$("#text").val("");
+      },
+    });
+  }
 }
