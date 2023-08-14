@@ -38,31 +38,28 @@ var mainView = app.views.create(".view-main");
 var $$ = Dom7;
 baca();
 $$("#simpan").click(function () {
+  var id_tanggapan = $$("#id_tanggapan").val();
   var id_pengaduan = $$("#id_pengaduan").val();
-  var tgl_pengaduan = $$("#tgl_pengaduan").val();
-  var nik = $$("#nik").val();
-  var isi_laporan = $$("#isi_laporan").val();
-  var foto = $$("#foto").val();
-  var status = $$("#status").val();
+  var tgl_tanggapan = $$("#tgl_tanggapan").val();
+  var tanggapan = $$("#tanggapan").val();
+  var id_petugas = $$("#id_petugas").val();
   app.request({
-    url: "http://localhost/seldakam-api/pengaduan/simpan-pengaduan.php",
+    url: "http://localhost/seldakam-api/tanggapan/simpan-tanggapan.php",
     type: "POST",
     data: {
+      id_tanggapan: id_tanggapan,
       id_pengaduan: id_pengaduan,
-      tgl_pengaduan: tgl_pengaduan,
-      nik: nik,
-      isi_laporan: isi_laporan,
-      foto: foto,
-      status: status,
+      tgl_tanggapan: tgl_tanggapan,
+      tanggapan: tanggapan,
+      id_petugas: id_petugas,
     },
     success: function (data) {
       app.dialog.alert("Berhasil Simpan Data!");
+      $$("#id_tanggapan").val("");
       $$("#id_pengaduan").val("");
-      $$("#tgl_pengaduan").val("");
-      $$("#nik").val("");
-      $$("#isi_laporan").val("");
-      $$("#foto").val("");
-      $$("#status").val("");
+      $$("#tgl_tanggapan").val("");
+      $$("#tanggapan").val("");
+      $$("#id_petugas").val("");
       app.views.main.router.navigate("/home/");
       baca();
     },
@@ -71,7 +68,7 @@ $$("#simpan").click(function () {
 $$("#tampil").on("click", "#hapus", function () {
   var id = $$(this).data("id");
   app.request.post(
-    "http://localhost/seldakam-api/pengaduan/hapus-pengaduan.php",
+    "http://localhost/seldakam-api/tanggapan/hapus-tanggapan.php",
     {
       id: id,
     },
@@ -84,48 +81,44 @@ $$("#tampil").on("click", "#hapus", function () {
 $$("#tampil").on("click", "#ubah", function () {
   var id = $$(this).data("id");
   app.request.json(
-    "http://localhost/seldakam-api/pengaduan/cari-pengaduan.php",
+    "http://localhost/seldakam-api/tanggapan/cari-tanggapan.php",
     {
       id: id,
     },
     function (data) {
-      $$("#eid").val(data[0].id_pengaduan);
-      $$("#etgl_pengaduan").val(data[0].tgl_pengaduan);
-      $$("#enik").val(data[0].nik);
-      $$("#eisi_laporan").val(data[0].isi_laporan);
-      $$("#efoto").val(data[0].foto);
-      $$("#estatus").val(data[0].status);
+      $$("#eid").val(data[0].id_tanggapan);
+      $$("#eid_pengaduan").val(data[0].id_pengaduan);
+      $$("#etgl_tanggapan").val(data[0].tgl_tanggapan);
+      $$("#etanggapan").val(data[0].isi_laporan);
+      $$("#eid_petugas").val(data[0].foto);
       app.views.main.router.navigate("/fubah/");
     }
   );
 });
 $$("#esimpan").click(function () {
   var id = $$("#eid").val();
-  var tgl_pengaduan = $$("#etgl_pengaduan").val();
-  var nik = $$("#enik").val();
-  var isi_laporan = $$("#isi_laporan").val();
-  var foto = $$("#efoto").val();
-  var status = $$("#estatus").val();
+  var id_pengaduan = $$("#eid_pengaduan").val();
+  var tgl_tanggapan = $$("#etgl_tanggapan").val();
+  var tanggapan = $$("#etanggapan").val();
+  var id_petugas = $$("#eid_petugas").val();
   app.request({
-    url: "http://localhost/seldakam-api/pengaduan/esimpan-pengaduan.php",
+    url: "http://localhost/seldakam-api/tanggapan/esimpan-tanggapan.php",
     type: "POST",
     data: {
       id: id,
-      tgl_pengaduan: tgl_pengaduan,
-      nik: nik,
-      isi_laporan: isi_laporan,
-      foto: foto,
-      status: status,
+      id_pengaduan: id_pengaduan,
+      tgl_tanggapan: tgl_tanggapan,
+      tanggapan: tanggapan,
+      id_petugas: id_petugas,
     },
     success: function (data) {
       console.log(data);
       app.dialog.alert("Berhasil Ubah Data!");
+      $$("#eid_tanggapan").val("");
       $$("#eid_pengaduan").val("");
-      $$("#etgl_pengaduan").val("");
-      $$("#enik").val("");
-      $$("#eisi_laporan").val("");
-      $$("#efoto").val("");
-      $$("#estatus").val("");
+      $$("#etgl_tanggapan").val("");
+      $$("#etanggapan").val("");
+      $$("#eid_petugas").val("");
       app.views.main.router.navigate("/home/");
       baca();
     },
@@ -133,7 +126,7 @@ $$("#esimpan").click(function () {
 });
 
 function baca() {
-  app.request.json("http://localhost/seldakam-api/pengaduan/tampil-pengaduan.php", function (data) {
+  app.request.json("http://localhost/seldakam-api/tanggapan/tampil-tanggapan.php", function (data) {
     var jlh = data.length;
     var i = "";
     console.log(data);
@@ -145,27 +138,24 @@ function baca() {
         (i + 1) +
         "</td>" +
         "<td>" +
+        data[i].id_tanggapan +
+        "</td>" +
+        "<td>" +
         data[i].id_pengaduan +
         "</td>" +
         "<td>" +
-        data[i].tgl_pengaduan +
+        data[i].tgl_tanggapan +
         "</td>" +
         "<td>" +
-        data[i].nik +
+        data[i].tanggapan +
         "</td>" +
         "<td>" +
-        data[i].isi_laporan +
-        "</td>" +
-        "<td>" +
-        data[i].foto +
-        "</td>" +
-        "<td>" +
-        data[i].status +
+        data[i].id_petugas +
         "</td>" +
         "<td><a href='#' id='ubah' data-id='" +
-        data[i].id_pengaduan +
+        data[i].id_tanggapan +
         "'><i class='f7-icons'>arrow_2_circlepath</i></a> <a href='#' id='hapus' data-id='" +
-        data[i].id_pengaduan +
+        data[i].id_tanggapan +
         "'><i class='icon f7-icons color-red'>trash</i></a><td>" +
         "</tr>";
     }

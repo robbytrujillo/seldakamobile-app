@@ -1,197 +1,436 @@
 <!DOCTYPE html>
 <html>
+
     <head>
-        <meta charset="UTF-8">
+        <!-- Required meta tags-->
+        <meta charset="utf-8">
         <meta name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent">
+        <!-- Color theme for statusbar (Android only) -->
         <meta name="theme-color" content="#2196f3">
-        <meta http-equiv="Content-Security-Policy"
-            content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
-        <title>Sistem Informasi Desa</title>
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="default">
-        <link rel="apple-touch-icon" href="static/icons/apple-touch-icon.png">
-        <link rel="icon" href="static/icons/favicon.png">
-        <link rel="icon" href="static/images/favicon.png">
-        <link rel="stylesheet" href="static/css/framework7.bundle.min.css">
-        <link rel="stylesheet" href="static/css/font-awesome.min.css">
-        <link rel="stylesheet" href="static/css/style.css">
-        <link rel="stylesheet" href="static/css/custom.css">
+        <!-- Your app title -->
+        <title>seldakam-mobile</title>
+        <!-- Path to Framework7 Library Bundle CSS -->
+        <link rel="stylesheet" href="css/framework7-icons.css">
+        <link rel="stylesheet" href="css/framework7.bundle.min.css">
+        <!-- Path to your custom app styles-->
+        <link rel="stylesheet" href="css/my-app.css">
     </head>
+
     <body>
+        <!-- App root element -->
         <div id="app">
+
+            <!-- Your main view, should have "view-main" class -->
             <div class="view view-main">
-                <div class="page" data-name="home">
+                <!-- Initial Page, "data-name" contains page name -->
+                <div data-name="home" class="page">
+                    <!-- Top Navbar -->
                     <div class="navbar">
-                        <div class="navbar-inner sliding navbar-pages">
-                            <a href="#" class="link back">
-                                <i class="fa fa-home"></i>
-                            </a>
-                            <h4>Sistem Penyelewengan Dana Kampanye</h4>
-                            <div class="item-right"></div>
-                        </div>
-                    </div>
-                    <div class="toolbar tabbar tabbar-labels toolbar-bottom">
-                        <div class="toolbar-inner">
-                            <a href="#tab-1" class="tab-link tab-link-active">
-                                <i class="fa fa-home"></i>
-                            </a>
-                            <a href="#tab-2" class="tab-link">
-                                <i class="fas fa-clone">
-                                    <span class="badge color-red">Berita</span>
-                                </i>
-                            </a>
-                            <a href="#tab-4" class="tab-link">
-                                <i class="fas fa-bacon"></i>
-                            </a>
-                            <a href class="tab-link popup-open"
-                                data-popup=".popup-login">
-                                <i class="fas fa-plus"></i>
-                            </a>
-                            <span class="tab-link-highlight"
-                                style="width: 25%; transform: translate3d(0%, 0px, 0px);"></span></div>
-                    </div>
-                    <div class="sheet-modal sheet-modal-push my-sheet-push">
-                        <div class="toolbar">
-                            <div class="toolbar-inner">
-                                <div class="left"></div>
-                                <div class="right">
-                                    <a class="link sheet-close">Tutup</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sheet-modal-inner">
-                            <div id="detailHome" class="page-content">
-                            </div>
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="title">
+                                seldakam-App (2111601809-Robby Ilhamkusuma)</div>
                         </div>
                     </div>
 
-                    <div class="sheet-modal sheet-modal-push my-sheet-push-stat">
-                        <div class="toolbar">
-                            <div class="toolbar-inner">
-                                <div class="left"></div>
-                                <div class="right">
-                                    <a class="link sheet-close">Tutup</a>
-                                </div>
-                            </div>
+                    <!-- Scrollable page content -->
+                    <div class="page-content">
+                        <div class="block">
+                            <a href="/page2/"
+                                class="button button-fill color-blue">Page2</a>
+                            <a href class="button button-fill color-green">Page3</a>
                         </div>
-                        <div class="sheet-modal-inner">
-                            <div id="detailStatistik" class="page-content">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="sheet-modal sheet-modal-push my-sheet-push-info">
-                        <div class="toolbar">
-                            <div class="toolbar-inner">
-                                <div class="left"></div>
-                                <div class="right">
-                                    <a class="link sheet-close">Tutup</a>
-                                </div>
+                        <div class="block">
+                            <div class="data-table">
+                                <!-- <table>
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>ID Anggota</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>Email</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Tlp</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tampil">
+                                    </tbody>
+                                </table> -->
                             </div>
                         </div>
-                        <div class="sheet-modal-inner">
-                            <div id="detailInformasi" class="page-content">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="tabs-animated-wrap">
-                        <div class="tabs">
-                            <div id="tab-1" class="tab page-content tab-active">
-                                <div class="container">
-                                    <div class="separator"></div>
-                                    <div class="separator"></div>
-                                    <div class="separator"></div>
-                                    <div class="title-home">
-                                        <div class="content">
-                                            <span>Selamat Datang di</span>
-                                            <h1>Sistem Penyelewengan Dana
-                                                Kampanye</h1>
-                                            <p>2111601809</p>
-                                        </div>
-                                    </div>
-                                    <div class="separator"></div>
-                                    <div class="features-home">
-                                        <div id="dataHome"
-                                            class="row icon-color ">
-                                        </div>
-                                        <div id="dataStatistik"
-                                            class="row icon-color2">
-                                        </div>
-                                        <div id="dataInformasi"
-                                            class="row icon-color3">
-                                        </div>
-                                    </div>
-                                    <div class="separator-big"></div>
-                                </div>
-                            </div>
-                            <div id="tab-2" class="tab page-content">
-                                <div class="container">
-                                    <div class="separator"></div>
-                                    <div class="blog segments-page">
-                                        <div id="DataPosts" class="container">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="separator-big"></div>
-                            </div>
-                            <div id="tab-4" class="tab page-content">
-                                <div class="separator"></div>
-                                <div id="DataCategories" class="timelines">
-                                </div>
-                                <div class="separator-big"></div>
-                            </div>
-                            <div class="popup popup-login"
-                                style="display: none;">
-                                <form class="list no-hairlines-md">
-                                    <div class="link-closess">
-                                        <a href="#"
-                                            class="link popup-close badge color-red float-right">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <ul>
-                                        <li class="item-content item-input">
+                        <div class="content-block-title">Navigasi</div>
+                        <div class="list-block">
+                            <ul>
+                                <li><a href="pengaduan.html" class="item-link">
+                                        <div class="item-content">
                                             <div class="item-inner">
-                                                <div class="item-input-wrap">
-                                                    <input type="text"
-                                                        id="datanama"
-                                                        placeholder="Nama Anda"
-                                                        class>
-                                                    <span
-                                                        class="input-clear-button"></span>
+                                                <div class="item-title">Pengaduan</div>
+                                            </div>
+                                        </div>
+                                    </a></li>
+                            </ul>
+                        </div>
+
+                        <div class="block">
+                            <a href="/pengaduan/"
+                                class="col button button-fill color-cyan">Pengaduan</a>
+                        </div>
+                        <div class="block">
+                            <a href="/tanggapan/"
+                                class="col button button-fill color-cyan">Tanggapan</a>
+                        </div>
+                        <div class="block">
+                            <a href="/petugas/"
+                                class="col button button-fill color-cyan">Petugas</a>
+                        </div>
+                        <div class="block">
+                            <a href="/masyarakat/"
+                                class="col button button-fill color-cyan">Masyarakat</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- page2 -->
+                <div data-name="page2" class="page stacked">
+                    <!-- Top Navbar -->
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="left"><a href="#"><i
+                                        class="icon f7-icons">chevron-back</i></a>
+                                <div class="title">
+                                    seldakam-App (2111601809-Robby Ilhamkusuma)</div>
+                            </div>
+                        </div>
+
+                        <!-- Scrollable page content -->
+                        <div class="page-content">
+                            <div class="block">
+                                <a href="/page2/"
+                                    class="button button-fill color-blue">Page2</a>
+                                <a href class="button button-fill color-green">Page3</a>
+                            </div>
+
+                            <div class="block">
+                                <div class="data-table">
+                                    <!-- <table>
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>ID Anggota</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>Email</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Tlp</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tampil">
+                                    </tbody>
+                                </table> -->
+                                </div>
+                            </div>
+                            <div class="block">
+                                <a href="./pages/pengaduan/"
+                                    class="col button button-fill color-cyan">Pengaduan</a>
+                            </div>
+                            <div class="block">
+                                <a href="./pages/tanggapan/"
+                                    class="col button button-fill color-cyan">Tanggapan</a>
+                            </div>
+                            <div class="block">
+                                <a href="./pages/petugas/"
+                                    class="col button button-fill color-cyan">Petugas</a>
+                            </div>
+                            <div class="block">
+                                <a href="./pages/masyarakat/"
+                                    class="col button button-fill color-cyan">Masyarakat</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Toolbar -->
+                    <div class="toolbar toolbar-bottom">
+                        <div class="toolbar-inner">
+                            <!-- Toolbar links -->
+                            <a href="#" class="link">Link 1</a>
+                            <a href="#" class="link">Link 2</a>
+                        </div>
+                    </div>
+
+                    <!--untuk halaman tambah -->>
+                    <div data-name="tambah" class="page stacked">
+                        <!-- Top Navbar -->
+                        <div class="navbar">
+                            <div class="navbar-bg"></div>
+                            <div class="navbar-inner">
+                                <div class="left">
+                                    <a href="#" class="button back">
+                                        <i class="icon f7-icons">arrow_left</i>
+                                    </a>
+                                </div>
+                                <div class="title">
+                                    Tambah Data
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Bottom Toolbar -->
+                        <div class="toolbar toolbar-bottom">
+                            <div class="toolbar-inner">
+                                <!-- Toolbar links -->
+                                <a href="#" class="link">Link 1</a>
+                                <a href="#" class="link">Link 2</a>
+                            </div>
+                        </div>
+                        <!-- Scrollable page content -->
+                        <div class="page-content">
+                            <div class="block">
+                                <form class="list" id="my-form">
+                                    <ul>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">ID
+                                                        Anggota</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="id"
+                                                            placeholder="ID Anggota">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-input-wrap">
-                                                    <input type="text" id="isi"
-                                                        placeholder="Kritik dan Saran"
-                                                        class>
-                                                    <span
-                                                        class="input-clear-button"></span>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Nama
+                                                        Anggota</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="nama"
+                                                            placeholder="Nama Anggota">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Jenis
+                                                        Kelamin</div>
+                                                    <div class="item-input-wrap">
+                                                        <select id="kelamin">
+                                                            <option value
+                                                                selected>--Pilih--</option>
+                                                            <option
+                                                                value="Laki-Laki">Laki-Laki</option>
+                                                            <option
+                                                                value="Perempuan">Perempuan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Alamat</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="alamat"
+                                                            placeholder="Alamat">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Email</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="email"
+                                                            id="email"
+                                                            placeholder="Emali">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Tlp/HP</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="tlp"
+                                                            placeholder="Tlp/HP">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </form>
-                                <button id="kirim" class="buttons popup-close"><i
-                                        class="fas fa-paper-plane"></i> Kirim</button>
+                                <div class="block block-strong row">
+                                    <div class="col">
+                                        <a
+                                            class="button button-fill convert-form-to-data"
+                                            href="#" id="simpan">
+                                            Simpan
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Untuk Form Ubah data-->
+                    <div data-name="fubah" class="page stacked">
+                        <!-- Top Navbar -->
+                        <div class="navbar">
+                            <div class="navbar-bg"></div>
+                            <div class="navbar-inner">
+                                <div class="left">
+                                    <a href="#" class="button back">
+                                        <i class="icon f7-icons">arrow_left</i>
+                                    </a>
+                                </div>
+                                <div class="title">
+                                    Form Ubah Data
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Bottom Toolbar -->
+                        <div class="toolbar toolbar-bottom">
+                            <div class="toolbar-inner">
+                                <!-- Toolbar links -->
+                                <a href="#" class="link">Link 1</a>
+                                <a href="#" class="link">Link 2</a>
+                            </div>
+                        </div>
+                        <!-- Scrollable page content -->
+                        <div class="page-content">
+                            <div class="block">
+                                <form class="list" id="my-form">
+                                    <ul>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">ID
+                                                        Anggota</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="eid"
+                                                            placeholder="ID Anggota"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Nama
+                                                        Anggota</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="enama"
+                                                            placeholder="Nama Anggota">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Jenis
+                                                        Kelamin</div>
+                                                    <div class="item-input-wrap">
+                                                        <select id="ekelamin">
+                                                            <option value
+                                                                selected>--Pilih--</option>
+                                                            <option
+                                                                value="Laki-Laki">Laki-Laki</option>
+                                                            <option
+                                                                value="Perempuan">Perempuan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Alamat</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="ealamat"
+                                                            placeholder="Alamat">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Email</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="email"
+                                                            id="eemail"
+                                                            placeholder="Emali">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div
+                                                        class="item-title item-label">Tlp/HP</div>
+                                                    <div class="item-input-wrap">
+                                                        <input type="text"
+                                                            id="etlp"
+                                                            placeholder="Tlp/HP">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </form>
+                                <div class="block block-strong row">
+                                    <div class="col">
+                                        <a
+                                            class="button button-fill convert-form-to-data"
+                                            href="#" id="esimpan">
+                                            Ubah
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="static/js/framework7.min.js"></script>
-        <script src="static/js/jquery-2.1.0.min.js"></script>
-        <script src="js/routes.js"></script>
-        <script src="js/my-app.js"></script>
-    </body>
-</html>
+            <!-- Path to Framework7 Library Bundle JS-->
+            <script type="text/javascript" src="js/framework7.bundle.min.js"></script>
+            <!-- Path to your app js-->
+            <script type="text/javascript" src="js/my-app.js"></script>
+        </body>
+
+    </html>
