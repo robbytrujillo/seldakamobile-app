@@ -89,8 +89,8 @@ $$("#tampil").on("click", "#ubah", function () {
       $$("#eid").val(data[0].id_tanggapan);
       $$("#eid_pengaduan").val(data[0].id_pengaduan);
       $$("#etgl_tanggapan").val(data[0].tgl_tanggapan);
-      $$("#etanggapan").val(data[0].isi_laporan);
-      $$("#eid_petugas").val(data[0].foto);
+      $$("#etanggapan").val(data[0].tanggapan);
+      $$("#eid_petugas").val(data[0].id_petugas);
       app.views.main.router.navigate("/fubah/");
     }
   );
